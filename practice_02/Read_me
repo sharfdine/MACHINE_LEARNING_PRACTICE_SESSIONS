@@ -1,0 +1,8 @@
+in this pratice session, i used the same data but this 
+the problem was in the ER, everyday many patients get admitted in the ER, and it becomes a challenge for the team to categorise those patients on the basis of critical care.
+for that guidelines have standardised the traige levels starting from emergency requiring care within 5 minutes to immeidate requiring care within 10 mins and urgent care requiring care within 30 minutes
+but how to actually help in making a decision
+so on the basis of their demographics and past medical history, I designed a model which will recommend the triage 
+though it is not fully helpful as the triage should be on the basis of presenting complaints, as a patient with septic shock but stable past medical history would get an urgent critcial care while a patient with complex medical history would get priority care even he is presenting with dehydration 
+thus the model predicted 38 patients to be in emergency care 
+but it can be upgraded on the basis of data 
