@@ -1,0 +1,4 @@
+in this file, i used encoding.
+because many datasets of healthcare would not made ready for ML pipelines, therefore it is essential to integrate encoding 
+the final results were tuned 
+a classification report was also generated 
