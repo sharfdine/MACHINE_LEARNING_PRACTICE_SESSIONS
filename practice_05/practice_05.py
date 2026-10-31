@@ -33,8 +33,8 @@ for train_index, test_index in split.split (X,y):
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.compose import ColumnTransformer
 
-frailty_score = ['Mild Frailty',
-'Fit / Robust',
+frailty_score = ['Fit / Robust',
+'Mild Frailty',
 'Moderate Frailty',
 'Severe Frailty',]
 
@@ -87,8 +87,6 @@ param_grid = {
     'learning_rate': [0.01, 0.05,0.1],
     'reg_lambda': [1.0,3.0,5.0],
     'n_estimators': [100,200,300],
-    'colsample_bytree': [0.6,0.8,1.0],
-    'colsample_bylevel': [0.6,0.8,1.0],
 }
 
 
@@ -112,9 +110,9 @@ for prob in cdi_probabilities:
 
   if prob >0.80:
     categories.append("CDI INFECTION CASE")
-  if prob >=0.60:
+  elif prob >=0.60:
     categories.append("EXPECTED CDI INFECTION")
-  if prob >= 0.40:
+  elif prob >= 0.40:
     categories.append("CHECK FOR CDI INFECTION")
   else:
     categories.append("SAFE TO DISCHARGE")
