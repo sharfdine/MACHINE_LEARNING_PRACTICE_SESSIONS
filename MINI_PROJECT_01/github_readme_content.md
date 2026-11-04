@@ -1,0 +1,54 @@
+# Inpatient Multi-Target Clinical Surveillance System
+### Multi-Output Stacking Ensemble for High-Consequence Hospital Complications
+
+An end-to-end clinical machine learning surveillance pipeline designed to predict four critical inpatient complications simultaneously: **Healthcare-associated *C. difficile* Infection (CDI)**, **Deep Vein Thrombosis / Venous Thromboembolism (DVT/VTE)**, **30-Day Unplanned Readmission**, and **In-Hospital Acute Kidney Injury (AKI)**.
+
+---
+
+## 🌟 Key Engineering & Architectural Highlights
+
+* **Multi-Target Joint Architecture:** Wrapped inside `MultiOutputClassifier`, allowing independent meta-learners to optimize risk stratification across four clinically distinct endpoints from a shared 24-feature patient representation.
+* **Two-Tier Stacking Ensemble:**
+  * **Base Layer (Diverse Inductive Biases):** Combines `RandomForestClassifier` (variance reduction via bagging) and `XGBClassifier` (bias reduction via sequential gradient boosting).
+  * **Meta-Learner Layer:** Employs an $L_2$-regularized `LogisticRegression` (Ridge) trained via out-of-fold cross-validation (`cv=3`, `stack_method='predict_proba'`), preventing second-level overfitting and resolving collinearity between base tree models.
+* **Leakage-Free Preprocessing Pipeline:** Integrates Scikit-Learn’s `ColumnTransformer` within a master `Pipeline`, guaranteeing all ordinal mappings, one-hot encodings, and scaling parameters are learned strictly on training splits.
+* **Imbalance-Aware Formulation:** Direct countermeasure against low inpatient incidence rates ($10\% - 22\%$) utilizing class-balanced loss weighting and threshold-independent discrimination metrics.
+
+---
+
+## 🏥 Clinical Problems & Pathophysiological Drivers
+
+| Target Complication | Inpatient Baseline | Key Predictive Biomarkers & Features | Clinical Guidelines Aligned |
+| :--- | :---: | :--- | :--- |
+| **CDI Infection** | ~14.3% | High-risk antibiotic classes (Cephalosporins, Fluoroquinolones), duration of therapy, prolonged PPI exposure ($\ge 7\text{d}$), prior CDI, frequent bowel movements, hypoalbuminemia. | SHEA / IDSA Antimicrobial Stewardship Guidelines |
+| **DVT / VTE** | ~14.8% | Bedbound/assisted mobility status, active malignancy, prior VTE, recent surgery/trauma, elevated D-Dimer ($>1.0$ mg/L), platelet counts, BMI $\ge 30$, advanced age. | Padua & Caprini VTE Risk Models |
+| **30-Day Readmission** | ~22.2% | Charlson Comorbidity Index (CCI), frailty status tiers, baseline creatinine, severe hypoalbuminemia, multi-ward transfers. | HOSPITAL & LACE Readmission Indices |
+| **Acute Kidney Injury (AKI)** | ~10.3% | Nephrotoxic drug co-prescription count, baseline serum creatinine elevation, hemodynamic hypotension (SBP $<100$ mmHg), mechanical ventilation. | KDIGO Clinical Practice Guidelines |
+
+---
+
+## 🛠 Tech Stack & Machine Learning Tooling
+
+* **Core Engine:** Python 3.10+, Scikit-Learn (`Pipeline`, `ColumnTransformer`, `StackingClassifier`, `MultiOutputClassifier`)
+* **Base Models:** XGBoost (`XGBClassifier`), Scikit-Learn (`RandomForestClassifier`)
+* **Meta-Learner:** Regularized Logistic Regression ($L_2$ Ridge penalty)
+* **Optimization:** `GridSearchCV` / `RandomizedSearchCV` across nested estimators using double-underscore syntax (`stacking_model__estimator__...`)
+* **Evaluation Metrics:** ROC-AUC (One-vs-Rest Macro), PR-AUC (Average Precision), Brier Calibration Score
+
+---
+
+## 📊 Validation & Metric Protocol
+
+Clinical surveillance models operating on imbalanced cohorts cannot be evaluated using raw classification accuracy. This pipeline evaluates:
+1. **Macro ROC-AUC (OVR):** Evaluates overall cross-threshold patient risk ranking.
+2. **PR-AUC (Precision-Recall AUC):** Measures the positive predictive value against random event baselines, ensuring true alerts outweigh false alarms.
+3. **Calibrated Continuous Output:** Uses `predict_proba()` to output continuous risk values ($0.0\% - 100.0\%$) suitable for dynamic alert threshold tuning.
+
+---
+
+## 🔄 Continual Learning & Registry Loop
+
+The architecture incorporates a staging mechanism for new patient encounters:
+1. **Inference:** A new patient profile is processed through the frozen pipeline to generate real-time risk scores.
+2. **Staged Verification:** To prevent **self-confirmation bias**, predictions are never fed back as training labels.
+3. **Registry Ingestion:** Only clinician-verified discharge outcomes ($0$ or $1$) are appended to the historical dataset to enable scheduled pipeline retraining.
