@@ -5,7 +5,7 @@ An end-to-end clinical machine learning surveillance pipeline designed to predic
 
 ---
 
-## 🌟 Key Engineering & Architectural Highlights
+ Key Engineering & Architectural Highlights
 
 * **Multi-Target Joint Architecture:** Wrapped inside `MultiOutputClassifier`, allowing independent meta-learners to optimize risk stratification across four clinically distinct endpoints from a shared 24-feature patient representation.
 * **Two-Tier Stacking Ensemble:**
@@ -16,7 +16,7 @@ An end-to-end clinical machine learning surveillance pipeline designed to predic
 
 ---
 
-## 🏥 Clinical Problems & Pathophysiological Drivers
+Clinical Problems & Pathophysiological Drivers
 
 | Target Complication | Inpatient Baseline | Key Predictive Biomarkers & Features | Clinical Guidelines Aligned |
 | :--- | :---: | :--- | :--- |
@@ -27,7 +27,7 @@ An end-to-end clinical machine learning surveillance pipeline designed to predic
 
 ---
 
-## 🛠 Tech Stack & Machine Learning Tooling
+## Tech Stack & Machine Learning Tooling
 
 * **Core Engine:** Python 3.10+, Scikit-Learn (`Pipeline`, `ColumnTransformer`, `StackingClassifier`, `MultiOutputClassifier`)
 * **Base Models:** XGBoost (`XGBClassifier`), Scikit-Learn (`RandomForestClassifier`)
@@ -37,7 +37,7 @@ An end-to-end clinical machine learning surveillance pipeline designed to predic
 
 ---
 
-## 📊 Validation & Metric Protocol
+## Validation & Metric Protocol
 
 Clinical surveillance models operating on imbalanced cohorts cannot be evaluated using raw classification accuracy. This pipeline evaluates:
 1. **Macro ROC-AUC (OVR):** Evaluates overall cross-threshold patient risk ranking.
@@ -46,7 +46,7 @@ Clinical surveillance models operating on imbalanced cohorts cannot be evaluated
 
 ---
 
-## 🔄 Continual Learning & Registry Loop
+## Continual Learning & Registry Loop
 
 The architecture incorporates a staging mechanism for new patient encounters:
 1. **Inference:** A new patient profile is processed through the frozen pipeline to generate real-time risk scores.
