@@ -1,0 +1,3 @@
+in this model, logistic regression was used to see the effects of baseline egfr and contrast volume on contrast induced acute kidney injury 
+the model ended with a classification report 
+an odds ratio of zero was found which showed protective effects of these two variable on ci_aki 
