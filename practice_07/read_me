@@ -1,3 +1,9 @@
 in this model, logistic regression was used to see the effects of baseline egfr and contrast volume on contrast induced acute kidney injury 
 the model ended with a classification report 
 an odds ratio of zero was found which showed protective effects of these two variable on ci_aki 
+i started with data loading, spliting of data, since there were no categorical varaibles, it required simple data preprocessing in the form of scaler
+i used a minmaxscaler because i like it 
+then logistic regression model was used and at the end some performance metrics were also used 
+i tuned the model with a threshold value and then got a classification report 
+a confusion matrix was also calculated and odds ratio also 
+i am working on understanding data and using direct metrics to interpret the results 
