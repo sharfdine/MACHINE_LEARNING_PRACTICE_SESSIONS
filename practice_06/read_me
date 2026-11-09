@@ -1,2 +1,4 @@
 in this code, i created an ensemble learning stacking model for a dataset 
 now i am working on stacking, to use meta learners and base learners to give high reliability scoring for clinical datasets 
+in the current session, i explored ensembling, ensembling is a great technique for biomedical and clinical projects where I can easily use baselearners augmented by the meta learners to make final predictions
+in the upcoming sessions i will focus on making a consenustype thing and adding tuning parameters and adjusting them to get good performance metrics 
