@@ -1,0 +1,8 @@
+i have tried practicing the ML pipeline here starting with splitting and moving towards the preprocessing part 
+in the preprocessing part, i have used ordinal enocders and onehotencoders for cat and nom data resp 
+then i proceeded towards creating base learners using xgboost and random forest 
+a meta learner of logistic regression was created 
+then i created a stacking model and did not use multioutputclassifier as this would be alone enough and we have to predict one thing 
+since i was using a logistic regression model, only the roc_auc_ovr was used as it fits best with it 
+then grid search was done and some hyperparameters were tuned 
+and best tuned model was found 
