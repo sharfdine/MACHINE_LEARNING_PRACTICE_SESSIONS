@@ -1,0 +1,15 @@
+in session_08, i have created an ensemble learning model, and in this one i took it forward
+second step is the spliting first split in temp and test and then split temp in train and val 
+first of all, i used a calibratedclassifier cv to calibrate the final probabilities given by the model 
+for that i let the routine pipeline run normally, once the grid search was done, i created a calibrated pipeline incorporating the calibrated classifier, the base pipeline, and the cv and jobs
+after that i ran the calibrated pipeline fit and predict proba and the other fit the other pipeline fit and predict proba 
+then i ran the val set for both 
+since i wanted to set a clinical scorer for the predictions because because the model is working on categorising the non risk patients of cdi with probs below 0.50 so it was essential to create a clincial scorer and to get rid of recieveroperatingcharacteristic
+why pr auc is better than roc auc is because prior one focuses on sensitvity of how often the positive patients will be identified and of out of all positive patients how many of postives patients were identified
+c(fp)/c(fp)*c(fn) with c(fp):c(fn) 5:1 anypatient having a risk of 16.7% of getting a cdi was flagged 
+then a tunedthresholdclassifier was applied and was fit and was named tuned model
+then the pred of tuned model was calculated along with pred_proba [:,1] 
+pred_proba for pr auc because it needs continous values from 0 to 1 
+recall, precision, average precision score were calculated for both test and val 
+for now, it is this, we can tune the hyperparameters or anyother parameter to improved the scoring
+the val set showed a recall of 68% meaning of all positive patients it detect 68% of them with still a lot to cover here 
