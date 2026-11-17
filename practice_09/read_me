@@ -6,7 +6,7 @@ after that i ran the calibrated pipeline fit and predict proba and the other fit
 then i ran the val set for both 
 since i wanted to set a clinical scorer for the predictions because because the model is working on categorising the non risk patients of cdi with probs below 0.50 so it was essential to create a clincial scorer and to get rid of recieveroperatingcharacteristic
 why pr auc is better than roc auc is because prior one focuses on sensitvity of how often the positive patients will be identified and of out of all positive patients how many of postives patients were identified
-c(fp)/c(fp)*c(fn) with c(fp):c(fn) 5:1 anypatient having a risk of 16.7% of getting a cdi was flagged 
+-c(fp)/c(fp)*c(fn) with c(fp):c(fn) 5:1 anypatient having a risk of 16.7% of getting a cdi was flagged 
 then a tunedthresholdclassifier was applied and was fit and was named tuned model
 then the pred of tuned model was calculated along with pred_proba [:,1] 
 pred_proba for pr auc because it needs continous values from 0 to 1 
