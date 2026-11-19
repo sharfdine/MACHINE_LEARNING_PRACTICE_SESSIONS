@@ -1,0 +1,4 @@
+in this note book we finally moved towards the optuna which allows the model to select the best parameters and move furtehr 
+it helps in decidingthe best params and then cloning on those params ina final pipeline which gets calibrated and tuned threshold in further codes 
+secondly, it gives a psi. which simulates the real world deployment and helps in knowing the drift of the model once it is exposed to new datastes 
+by concluding this we actually know what it takes to simulate the deployment of our dataset and will later learn how to tunethe drifts 
